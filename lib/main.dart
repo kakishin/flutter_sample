@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() => runApp(MyApp());
 
@@ -129,7 +130,10 @@ class SamplePage2State extends State<SamplePage2> {
               ),
             ),
             onPressed: () {
-              setState(() {});
+              setState(() {
+                HttpRequest res = new HttpRequest();
+                res.select();
+              });
             },
           ),
         ],
@@ -201,5 +205,16 @@ class ScheduleCardData {
 
   void setName(String name) {
     this.name = name;
+  }
+}
+
+class HttpRequest {
+  final uri_select = Uri.http('localhost:3000', '/select');
+
+  HttpRequest() {}
+
+  void select() async {
+    final response = await http.get(uri_select);
+    print(response.body);
   }
 }
